@@ -1,5 +1,10 @@
 /*
-GPIO HALT: monitors a single GPIO pin, initiates orderly shutdown.
+GPIO REBOOT: monitors a single GPIO pin, initiates orderly reboot.
+
+Similar functionality to Adafruit-GPIO-Halt except initiates a system reboot
+instead of shutdown. Modified by Alan Pullen
+
+
 Similar functionality to the rpi_power_switch kernel module from the
 fbtft project, but easier to compile (no kernel headers needed).
 
@@ -67,7 +72,7 @@ char
    sysfs_root[] = "/sys/class/gpio", // Location of Sysfs GPIO files
    running      = 1;                 // Signal handler will set to 0 (exit)
 int
-   pin          = 21;                // Shutdown pin # (override w/argv)
+   pin          = 26;                // Reboot pin # (override w/argv)
 volatile unsigned int
   *gpio;                             // GPIO register table
 const int
@@ -276,7 +281,7 @@ int main(int argc, char *argv[]) {
 			// Else timeout occurred
 		} else if(timeout == debounceTime) { // Button debounce timeout
 			if(pressed) {
-				(void)system("shutdown -h now");
+				(void)system("shutdown -r now");
 				running = 0;
 			}
 		}
