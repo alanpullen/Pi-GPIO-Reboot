@@ -1,9 +1,9 @@
-EXECS = gpio-halt
+EXECS = gpio-reboot
 CC    = gcc $(CFLAGS) -Wall -O3 -fomit-frame-pointer -funroll-loops -s
 
 all: $(EXECS)
 
-gpio-halt: gpio-halt.c
+gpio-reboot: gpio-reboot.c
 	$(CC) $< -o $@
 	strip $@
 
